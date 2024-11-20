@@ -56,6 +56,19 @@ export default class User {
     }
   }
 
+  async getOneUser(id) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: parseInt(id, 10),
+        },
+      });
+      return user;
+    } catch (err) {
+      return console.error('Seu erro foi:', err);
+    }
+  }
+
   async GetUsers() {
     try {
       const users = await prisma.user.findMany();

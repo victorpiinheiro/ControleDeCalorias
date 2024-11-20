@@ -25,6 +25,24 @@ class UserController {
     }
   }
 
+  async show(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(404).json({ errors: ['ID do usuário é obrigatório'] });
+      }
+
+      const user = await userModel.getOneUser(id);
+      if (!user) return res.status(200).json({ message: 'usuario nao encontrado', dados: [] });
+      return res.status(200).json({ message: 'Usuario encontrado:', user });
+    } catch (error) {
+      console.log('erro:', error);
+      return res.status(400).json({
+        errors: ['Erro ao buscar usuarios'],
+      });
+    }
+  }
+
   async store(req, res) {
     const { name = '', email = '', password = '' } = req.body;
     if (!name) return res.status(400).json({ error: 'o campo name é obrigatorio' });

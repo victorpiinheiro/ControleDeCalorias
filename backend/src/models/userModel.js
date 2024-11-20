@@ -77,4 +77,17 @@ export default class User {
       return error;
     }
   }
+
+  async deleteUser(id) {
+    try {
+      const userDelete = await prisma.user.delete({
+        where: {
+          id: parseInt(id, 10),
+        },
+      });
+      return userDelete;
+    } catch (error) {
+      return console.error(error);
+    }
+  }
 }

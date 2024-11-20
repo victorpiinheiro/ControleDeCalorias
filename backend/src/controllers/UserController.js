@@ -100,6 +100,23 @@ class UserController {
       return res.status(400).json({ errors: ['Erro ao editar usuario'], error });
     }
   }
+
+  async deleteUser(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ errors: ['ID do usuário é obrigatório'] });
+    }
+
+    try {
+      const deleteUser = await userModel.deleteUser(id);
+      if (!deleteUser) return res.status(200).json({ message: 'Não foi possivel deletar user/ user nao encontrado' });
+
+      return res.status(200).json({ message: 'Usuario deletado com sucesso' });
+    } catch (error) {
+      console.error('erro ao editar usuario:', error);
+      return res.status(400).json({ errors: ['Erro ao deletar usuario'], error });
+    }
+  }
 }
 
 export default new UserController();

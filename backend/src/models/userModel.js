@@ -15,7 +15,22 @@ export default class User {
     }
   }
 
-  async userExists(email) {
+  async updateUser(id, data) {
+    try {
+      const userEditado = await prisma.user.update({
+        where: {
+          id: parseInt(id, 10),
+        },
+        data,
+
+      });
+      return userEditado;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  async userExistsByEmail(email) {
     try {
       const verificaEmailExistente = await prisma.user.findUnique({
         where: {
@@ -23,6 +38,19 @@ export default class User {
         },
       });
       return verificaEmailExistente;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async userExistsById(id) {
+    try {
+      const verificaUser = await prisma.user.findUnique({
+        where: {
+          id: parseInt(id, 10),
+        },
+      });
+      return verificaUser;
     } catch (error) {
       return error;
     }

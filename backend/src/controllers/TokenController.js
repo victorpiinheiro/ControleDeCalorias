@@ -14,7 +14,7 @@ class TokenController {
       });
     }
     try {
-      const verificaEmailExiste = await userModel.userExists(email);
+      const verificaEmailExiste = await userModel.userExistsByEmail(email);
       if (!verificaEmailExiste) {
         return res.status(400).json({
           errors: ['Email nao existe'],

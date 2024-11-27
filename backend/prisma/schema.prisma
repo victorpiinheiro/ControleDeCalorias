@@ -21,4 +21,18 @@ model User{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  profile UserProfile?
+
 }
+
+model UserProfile {
+  id Int @id @default(autoincrement())
+  userId Int @unique
+  peso Float
+  altura Float
+  dataNasc DateTime
+  genero String?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+}
+

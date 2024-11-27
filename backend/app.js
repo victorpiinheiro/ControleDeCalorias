@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import userRoute from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
-
+import userRoute from './src/routes/userRoutes';
+import userProfile from './src/routes/userProfile';
 
 dotenv.config();
 
@@ -21,6 +21,7 @@ class App {
   routes() {
     this.app.use('/user', userRoute);
     this.app.use('/token', tokenRoutes);
+    this.app.use('/user-profile', userProfile);
   }
 }
 

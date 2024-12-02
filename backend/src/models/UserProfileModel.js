@@ -13,4 +13,30 @@ export default class UserProfile {
       return console.log('Erro ao criar perfil', error);
     }
   }
+
+  async deleteUser(id) {
+    try {
+      const userDeletado = await prisma.userProfile.delete({
+        where: {
+          id: parseInt(id, 10),
+        },
+      });
+      return userDeletado;
+    } catch (error) {
+      return console.log('Erro ao deletar perfil', error);
+    }
+  }
+
+  async getUserById(id) {
+    try {
+      const getUser = await prisma.userProfile.findUnique({
+        where: {
+          id: parseInt(id, 10),
+        },
+      });
+      return getUser;
+    } catch (error) {
+      return console.log('Erro ao procurar perfil', error);
+    }
+  }
 }

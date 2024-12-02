@@ -33,6 +33,24 @@ class UserProfileController {
       return res.status(400).json({ Error: ['erro ao cadastrar usuario'], error });
     }
   }
+
+  async deleteUser(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(200).json({ message: ['Id nao informado'] });
+
+      const userById = await userProfile.getUserById(id);
+
+      if (!userById) return res.status(401).json({ message: ['Perfil nao encontrado'] });
+
+      await userProfile.deleteUser(id);
+
+      return res.status(200).json({ message: ['Usuario deletado com sucesso'] });
+    } catch (error) {
+      console.log('seu erro foi:', error);
+      return res.status(400).json({ Error: ['erro ao excluir usuario'], error });
+    }
+  }
 }
 
 export default new UserProfileController();

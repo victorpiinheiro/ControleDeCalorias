@@ -3,6 +3,21 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export default class UserProfile {
+  async getAllUsers() {
+    try {
+      const usersProfile = await prisma.userProfile.findMany({
+        orderBy: {
+          id: 'desc',
+        },
+      });
+
+      return usersProfile;
+    } catch (err) {
+      console.log('erro:', err);
+      return err;
+    }
+  }
+
   async createUser(data) {
     try {
       const userProfile = await prisma.userProfile.create({

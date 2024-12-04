@@ -5,6 +5,14 @@ const userProfile = new UserProfile();
 const userModel = new UserModel();
 
 class UserProfileController {
+  async index(req, res) {
+    const users = await userProfile.getAllUsers();
+
+    if (!users) return res.status(400).json({ message: 'Sem usuarios para mostrar' });
+
+    return res.status(200).json({ usersProfile: users });
+  }
+
   async store(req, res) {
     const {
       userId, peso, altura, dataNasc, genero,
